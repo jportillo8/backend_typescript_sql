@@ -2,6 +2,7 @@ import express, {Application} from 'express';
 import cors from 'cors';
 
 import userRoutes from '../routes/usuario';
+import db from '../db/connection';
 
 class Server {
 
@@ -16,9 +17,23 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '8000';
+
+        // Metodos iniciales
+        this.dbConnectDB();
         this.middlewares();
         this.routes();
         
+    }
+
+    // Conección a la base de datos
+    async dbConnectDB() {
+        
+        try {
+            await db.authenticate();
+            console.log('Database online');
+        } catch (error) {
+            throw new Error(` Error al iniciar la base de datos: ${error}  `);
+        }
     }
 
     // Middlewares
