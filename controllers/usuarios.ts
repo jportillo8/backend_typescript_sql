@@ -43,7 +43,7 @@ export const postUsuario = async (req: Request , res : Response) => {
                 msg: 'Ya existe un usuario con el email ' + body.email
             });
         }
-
+        // Creamos el usuario y lo guardamos en la base de datos
         const usuario =   await Usuario.create( body );
 
         res.json({ usuario  });
@@ -102,8 +102,5 @@ export const deleteUsuario = async (req: Request , res : Response) => {
 
     // Eliminar el usuario cambiando el estado
     await usuario.update({state: false});
-
-
-
     res.json({usuario});
 }

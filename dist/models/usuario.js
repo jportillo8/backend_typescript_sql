@@ -12,7 +12,19 @@ const Usuario = connection_1.default.define('Usuario', {
     email: {
         type: sequelize_1.DataTypes.STRING,
     },
+    password: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    whatsapp: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    image: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     state: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+    },
+    google: {
         type: sequelize_1.DataTypes.BOOLEAN,
     },
 });
