@@ -27,24 +27,37 @@ export const getUsuario =  async (req: Request , res : Response) => {
 
 // postUsuario
 export const postUsuario = async (req: Request , res : Response) => {
-    const { body } = req;
+    const { name, email, password, whatsapp } = req.body;
 
     try {
 
         // Verificar si el email existe
         const existeEmail = await Usuario.findOne({
             where: {
-                email: body.email
+                email: email
             }
         });
 
         if ( existeEmail ) {
             return res.status(400).json({
-                msg: 'Ya existe un usuario con el email ' + body.email
+                msg: 'Ya existe un usuario con el email ' + email
+            });
+        }
+
+        // Verificar si el numero de whatsapp existe
+        const existeWhatsapp = await Usuario.findOne({
+            where: {
+                whatsapp: whatsapp
+            }
+        });
+
+        if ( existeWhatsapp ) {
+            return res.status(400).json({
+                msg: 'Ya existe un usuario con el numero de whatsapp ' + whatsapp
             });
         }
         // Creamos el usuario y lo guardamos en la base de datos
-        const usuario =   await Usuario.create( body );
+        const usuario =   await Usuario.create({ name, email, password, whatsapp });
 
         res.json({ usuario  });
         
